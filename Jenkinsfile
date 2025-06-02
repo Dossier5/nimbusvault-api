@@ -36,6 +36,8 @@ pipeline {
         stage('Release') {
             steps {
                 echo 'Tagging release...'
+                bat 'git config user.name "Dossier5"'
+                bat 'git config user.email "lim_jono@hotmail.com"'
                 bat 'git tag -a v1.0 -m "Release v1.0" || exit 0'
                 bat 'git push origin --tags || exit 0'
             }
