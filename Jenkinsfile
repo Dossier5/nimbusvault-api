@@ -5,44 +5,44 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the NimbusVault API...'
-                sh 'docker build -t nimbusvault-api .'
+                bat 'docker build -t nimbusvault-api .'
             }
         }
         stage('Test') {
             steps {
                 echo 'Running tests...'
-                sh 'npm install'
-                sh 'npm test'
+                bat 'npm install'
+                bat 'npm test'
             }
         }
         stage('Code Quality') {
             steps {
                 echo 'Running code quality checks...'
-                // Placeholder for sonar-scanner or eslint
+                // Placeholder – integrate SonarQube or eslint here
             }
         }
         stage('Security Scan') {
             steps {
                 echo 'Running security scan...'
-                sh 'npm audit || true'
+                bat 'npm audit || exit 0'
             }
         }
         stage('Deploy') {
             steps {
                 echo 'Deploying to test environment...'
-                sh 'docker-compose up -d'
+                bat 'docker-compose up -d'
             }
         }
         stage('Release') {
             steps {
                 echo 'Tagging release...'
-                sh 'git tag -a v1.0 -m "Release v1.0" || true'
-                sh 'git push origin --tags || true'
+                bat 'git tag -a v1.0 -m "Release v1.0" || exit 0'
+                bat 'git push origin --tags || exit 0'
             }
         }
         stage('Monitoring') {
             steps {
-                echo 'Monitoring placeholder - implement uptime check or Prometheus.'
+                echo 'Monitoring placeholder'
             }
         }
     }
