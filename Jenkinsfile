@@ -19,7 +19,7 @@ pipeline {
             steps {
                 echo 'Running code quality checks...'
                 withSonarQubeEnv('MySonar') {
-                    sh 'sonar-scanner'
+                    bat 'sonar-scanner.bat'
                 }
             }
         }
