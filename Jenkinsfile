@@ -18,7 +18,9 @@ pipeline {
         stage('Code Quality') {
             steps {
                 echo 'Running code quality checks...'
-                // Placeholder – integrate SonarQube or eslint here
+                withSonarQubeEnv('MySonar') {
+                    sh 'sonar-scanner'
+                }
             }
         }
         stage('Security Scan') {
