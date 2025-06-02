@@ -36,17 +36,18 @@ pipeline {
         stage('Release') {
             steps {
                 echo 'Tagging release...'
-                bat '''
+                bat """
                 git fetch --tags
-                if git rev-parse v1.0 >nul 2>&1; then
-                    echo "Tag v1.0 already exists, skipping tag creation."
-                else
+                git rev-parse v1.0 >nul 2>&1
+                if %ERRORLEVEL% equ 0 (
+                    echo Tag v1.0 already exists, skipping tag creation.
+                ) else (
                     git config user.name "Dossier5"
                     git config user.email "lim_jono@hotmail.com"
                     git tag -a v1.0 -m "Release v1.0"
                     git push origin --tags
-                fi
-                '''
+                )
+                """
             }
         }
         stage('Monitoring') {
